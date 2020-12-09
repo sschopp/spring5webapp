@@ -1,8 +1,20 @@
 package guru.springframework.spring5webapp.domain;
 
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
 public class Author {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String firstName;
+    private String lastName;
+
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books;
+
     public String getFirstName() {
         return firstName;
     }
@@ -27,9 +39,7 @@ public class Author {
         this.books = books;
     }
 
-    private String firstName;
-    private String lastName;
-    private Set<Book> books;
+
 
     public Author(){
     }
