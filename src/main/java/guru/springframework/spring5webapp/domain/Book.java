@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Created by jt on 5/16/17.
+ */
 @Entity
 public class Book {
     @Id
@@ -12,7 +15,7 @@ public class Book {
     private String title;
     private String isbn;
 
-    @ManyToOne
+    @OneToOne
     private Publisher publisher;
 
     @ManyToMany
@@ -23,19 +26,17 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String isbn) {
+    public Book(String title, String isbn, Publisher publisher) {
         this.title = title;
         this.isbn = isbn;
-    }
-
-    public Book(String title, String isbn, Set<Author> authors) {
-        this.title = title;
-        this.isbn = isbn;
-        this.authors = authors;
-    }
-
-    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    public Book(String title, String isbn, Publisher publisher, Set<Author> authors) {
+        this.title = title;
+        this.isbn = isbn;
+        this.publisher = publisher;
+        this.authors = authors;
     }
 
     public Long getId() {
@@ -60,6 +61,14 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     public Set<Author> getAuthors() {

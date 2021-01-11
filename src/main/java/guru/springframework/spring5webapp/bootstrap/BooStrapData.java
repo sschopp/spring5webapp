@@ -27,37 +27,29 @@ public class BooStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println("Stared Bootstrap");
-
         Publisher publisher = new Publisher();
-        publisher.setName("SFG Publishing");
-        publisher.setCity("St Petersburg");
-        publisher.setState("FL");
-
+        publisher.setName("foo");
+        publisher.setaddress("12th Street, LA");
         publisherRepository.save(publisher);
 
-        System.out.println("Publisher Count: " + publisherRepository.count());
-
+        //Eric
         Author eric = new Author("Eric", "Evans");
-        Book  ddd = new Book("Domain Driven Design", "1234");
+        Book  ddd = new Book("Domain Driven Design", "1234", publisher);
+        eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
 
         authorRepository.save(eric);
         bookRepository.save(ddd);
-        publisherRepository.save(publisher);
 
+
+        //Rod
         Author rod = new Author("Rod", "Johnson");
-        Book noEJB = new Book("J2EE Development without EJB", "23444");
-
-        noEJB.setPublisher(publisher);
-
-        publisher.getBooks().add(noEJB);
-
+        Book noEJB = new Book("J2EE Development without EJB", "23444", publisher );
+        rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
 
         authorRepository.save(rod);
         bookRepository.save(noEJB);
-        publisherRepository.save(publisher);
 
 
         System.out.println("Stared in Boostrap");
